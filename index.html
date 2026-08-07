@@ -666,6 +666,12 @@
       background-position: right 14px center;
     }
 
+    .field select option,
+    .magnet-form .field select option {
+      color: var(--ink) !important;
+      background-color: #fff !important;
+    }
+
     .field input::placeholder {
       color: rgba(255, 255, 255, .45);
     }
@@ -2889,6 +2895,13 @@
   </a>
 
   <script>
+    // ---------- Reset all forms on page show (prevents cached input fields on navigating back) ----------
+    window.addEventListener('pageshow', function (event) {
+      document.querySelectorAll('form').forEach(function (form) {
+        form.reset();
+      });
+    });
+
     // ---------- Mobile menu (simple slide-down) ----------
     document.querySelector('.menu-toggle').addEventListener('click', function () {
       var nav = document.querySelector('.main-nav');
