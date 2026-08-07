@@ -666,11 +666,6 @@
       background-position: right 14px center;
     }
 
-    .field select option {
-      color: var(--ink);
-      background-color: #fff;
-    }
-
     .field input::placeholder {
       color: rgba(255, 255, 255, .45);
     }
@@ -1127,6 +1122,8 @@
       gap: 26px;
       margin-top: 22px;
     }
+
+    .scholarship .stats div {}
 
     .scholarship .stats .n {
       font-size: 24px;
@@ -2990,6 +2987,15 @@
     // paste the Web App URL here — it ends in /exec.
     var SHEET_WEBAPP_URL = 'PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
 
+    // Capture UTM params once per page load, from whichever URL the visitor
+    // actually landed on (a Google Ads click, a Facebook link, etc.) — the
+    // sheet's UTM columns are populated from this, not typed by the user.
+    var CW_UTM = {
+      source: new URLSearchParams(window.location.search).get('utm_source') || '',
+      medium: new URLSearchParams(window.location.search).get('utm_medium') || '',
+      campaign: new URLSearchParams(window.location.search).get('utm_campaign') || ''
+    };
+
     function handleLeadSubmit(e, formName) {
       e.preventDefault();
       var form = e.target;
@@ -3010,6 +3016,9 @@
         qualification: val('-qual'),
         course: val('-course'),
         city: val('-city'),
+        utmSource: CW_UTM.source,
+        utmMedium: CW_UTM.medium,
+        utmCampaign: CW_UTM.campaign,
         pageUrl: window.location.href
       };
 
@@ -3018,16 +3027,17 @@
 
       // Apps Script Web Apps don't return CORS headers to fetch(), so we send
       // with mode:'no-cors' — the request still reaches the sheet, we just
-      // can't read a response back. That's fine here: we're not blocking the
-      // button/redirect timing on network latency (Apps Script cold starts can
-      // take a few seconds, which would blow past the "within 1 sec" target).
+      // can't read a response back, and fetch() won't reject even if the
+      // script fails server-side. That means this catch block will NOT
+      // reliably tell you about failures — to actually debug a missing row,
+      // check Apps Script → Executions (see comments in the .gs file).
       if (SHEET_WEBAPP_URL && SHEET_WEBAPP_URL.indexOf('PASTE_YOUR') === -1) {
         fetch(SHEET_WEBAPP_URL, {
           method: 'POST',
           mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(data)
-        }).catch(function (err) { console.error('Sheet submission failed:', err); });
+        }).catch(function (err) { console.error('Sheet submission request failed to send:', err); });
       } else {
         console.warn('SHEET_WEBAPP_URL is not configured yet — lead was not sent to the sheet. See google-apps-script-code.gs.');
       }
