@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <!-- ============================================================
      PRIMARY SEO / GOOGLE ADS META
@@ -776,6 +777,18 @@
     .cw-form-success p {
       color: var(--ink);
       margin-top: .4rem;
+    }
+
+    .cw-form-error {
+      text-align: center;
+      padding: 1.2rem .5rem;
+      color: var(--red-pink);
+    }
+
+    .cw-form-error p {
+      color: var(--ink);
+      margin-top: .4rem;
+      font-size: .88rem;
     }
 
     /* Left page: flight-path illustration (light background version) */
@@ -2657,6 +2670,12 @@
                 <p><strong>Got it.</strong> A Career Width counsellor will call you within 24 hours to talk through your
                   study abroad options.</p>
               </div>
+              <div id="cwFormError" class="cw-form-error d-none">
+                <svg class="icon icon-lg" style="fill: var(--red-pink); margin-bottom: 0.5rem;">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                </svg>
+                <p><strong>Something went wrong.</strong> Please check your internet connection or email us at <a href="mailto:inquiry@careerwidth.com" style="color: var(--navy); text-decoration: underline;">inquiry@careerwidth.com</a>.</p>
+              </div>
             </div>
             <p class="cw-passport__note">7,000+ students already made the move. 17 destinations. One counselling team.
             </p>
@@ -3422,6 +3441,12 @@
         const form = document.getElementById("cwLeadForm");
         if (!form) return;
         const successBox = document.getElementById("cwFormSuccess");
+        const errorBox = document.getElementById("cwFormError");
+        const btn = form.querySelector("button[type='submit']");
+        const originalBtnHtml = btn.innerHTML;
+
+        // Replace this placeholder with your deployed Google Apps Script Web App URL
+        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycby1mdbMIqNMxKoSA6ZtJ7ebK2v_JA6fxohmgENpanr87bkPqLFjvzuBEcfOdyQ1fCJM/exec";
 
         form.addEventListener("submit", function (e) {
           e.preventDefault();
@@ -3433,20 +3458,52 @@
             return;
           }
 
+          // Hide previous error message
+          if (errorBox) errorBox.classList.add("d-none");
+
+          // Disable form controls and show loading spinner on the submit button
+          const inputs = form.querySelectorAll("input, select, button");
+          inputs.forEach(el => el.disabled = true);
+          btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...`;
+
           const payload = Object.fromEntries(new FormData(form).entries());
 
-          // ---- TODO: replace with your real endpoint ----
-          // fetch("https://your-crm-endpoint.example.com/leads", {
-          //   method: "POST",
-          //   headers: { "Content-Type": "application/json" },
-          //   body: JSON.stringify(payload)
-          // });
-          console.log("Study Abroad lead captured:", payload);
-
-          form.classList.add("d-none");
-          if (successBox) successBox.classList.remove("d-none");
-
-          window.cwFireConversion();
+          if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== "YOUR_GOOGLE_SHEET_WEB_APP_URL") {
+            fetch(GOOGLE_SHEET_URL, {
+              method: "POST",
+              mode: "cors",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify(payload)
+            })
+            .then(response => {
+              if (!response.ok) throw new Error("Network response was not ok");
+              return response.json();
+            })
+            .then(data => {
+              if (data.result === "success") {
+                form.classList.add("d-none");
+                if (successBox) successBox.classList.remove("d-none");
+                window.cwFireConversion();
+              } else {
+                throw new Error(data.error || "Submission failed on server");
+              }
+            })
+            .catch(err => {
+              console.error("Study Abroad lead sheet submission failed:", err);
+              // Re-enable form and show error message
+              inputs.forEach(el => el.disabled = false);
+              btn.innerHTML = originalBtnHtml;
+              if (errorBox) errorBox.classList.remove("d-none");
+            });
+          } else {
+            // Default demo fallback logic if URL is not configured
+            console.log("Study Abroad lead captured (dry-run):", payload);
+            setTimeout(() => {
+              form.classList.add("d-none");
+              if (successBox) successBox.classList.remove("d-none");
+              window.cwFireConversion();
+            }, 1000);
+          }
         });
       }
 
