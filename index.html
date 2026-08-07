@@ -3471,22 +3471,15 @@
           if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL !== "YOUR_GOOGLE_SHEET_WEB_APP_URL") {
             fetch(GOOGLE_SHEET_URL, {
               method: "POST",
-              mode: "cors",
+              mode: "no-cors",
               headers: { "Content-Type": "text/plain;charset=utf-8" },
               body: JSON.stringify(payload)
             })
-            .then(response => {
-              if (!response.ok) throw new Error("Network response was not ok");
-              return response.json();
-            })
-            .then(data => {
-              if (data.result === "success") {
-                form.classList.add("d-none");
-                if (successBox) successBox.classList.remove("d-none");
-                window.cwFireConversion();
-              } else {
-                throw new Error(data.error || "Submission failed on server");
-              }
+            .then(() => {
+              // With no-cors, the promise resolves successfully once the request is sent
+              form.classList.add("d-none");
+              if (successBox) successBox.classList.remove("d-none");
+              window.cwFireConversion();
             })
             .catch(err => {
               console.error("Study Abroad lead sheet submission failed:", err);
