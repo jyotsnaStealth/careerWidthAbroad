@@ -3476,10 +3476,10 @@
               body: JSON.stringify(payload)
             })
             .then(() => {
-              // With no-cors, the promise resolves successfully once the request is sent
-              form.classList.add("d-none");
-              if (successBox) successBox.classList.remove("d-none");
               window.cwFireConversion();
+              setTimeout(function() {
+                window.location.href = "thankyou.html" + window.location.search;
+              }, 100);
             })
             .catch(err => {
               console.error("Study Abroad lead sheet submission failed:", err);
@@ -3492,9 +3492,8 @@
             // Default demo fallback logic if URL is not configured
             console.log("Study Abroad lead captured (dry-run):", payload);
             setTimeout(() => {
-              form.classList.add("d-none");
-              if (successBox) successBox.classList.remove("d-none");
               window.cwFireConversion();
+              window.location.href = "thankyou.html" + window.location.search;
             }, 1000);
           }
         });

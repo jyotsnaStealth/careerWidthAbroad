@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Session Confirmed | Study Abroad Consultants — Career Width</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Fonts: Fraunces (display) + Inter (body) + Space Mono (mono) -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #002995;
+      --navy-deep: #001B63;
+      --navy-soft: #0B3FB8;
+      --gold: #FFAB01;
+      --gold-light: #FFE3AA;
+      --cream: #F5F7FC;
+      --paper: #FFFFFF;
+      --ink: #10193A;
+      --slate: #566476;
+      --line: #DEE4F5;
+      --red-pink: #F93464;
+      --teal: #19BEDB;
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'Space Mono', 'Courier New', monospace;
+
+      --radius: 14px;
+      --shadow-card: 0 10px 30px -12px rgba(10, 38, 71, .18);
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--ink);
+      background: var(--cream);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .cw-thankyou-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      max-width: 550px;
+      width: 100%;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: cardFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes cardFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Logo link */
+    .cw-logo-link {
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .cw-logo-img {
+      max-height: 38px;
+      width: auto;
+    }
+
+    .cw-logo-fallback {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.5rem;
+      color: var(--navy);
+    }
+    .cw-logo-fallback span {
+      color: var(--gold);
+    }
+
+    /* Passport stamp visual */
+    .cw-stamp-wrapper {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .cw-passport-stamp {
+      width: 100%;
+      height: 100%;
+      border: 3px dashed var(--gold);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-family: var(--font-mono);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+      transform: rotate(-10deg);
+      background: rgba(255, 171, 1, 0.04);
+      animation: stampIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both;
+    }
+
+    @keyframes stampIn {
+      from {
+        opacity: 0;
+        transform: scale(1.6) rotate(-25deg);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(-10deg);
+      }
+    }
+
+    .cw-passport-stamp svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      margin-bottom: 4px;
+    }
+
+    .cw-eyebrow {
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: .78rem;
+      color: var(--teal);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+    }
+
+    .cw-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: var(--navy-deep);
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .cw-text {
+      color: var(--slate);
+      font-size: 0.98rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    /* Details box */
+    .cw-details-box {
+      background: var(--cream);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin-bottom: 2rem;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .cw-details-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .cw-details-row:last-child {
+      margin-bottom: 0;
+    }
+    .cw-details-label {
+      color: var(--slate);
+      font-weight: 500;
+    }
+    .cw-details-val {
+      color: var(--ink);
+      font-weight: 600;
+    }
+
+    /* Buttons */
+    .cw-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--gold);
+      color: var(--navy-deep);
+      font-weight: 700;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(255, 171, 1, 0.2);
+    }
+    .cw-btn:hover {
+      background: #f0a000;
+      color: var(--navy-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 171, 1, 0.3);
+    }
+    .cw-btn:active {
+      transform: translateY(0);
+    }
+
+    .cw-btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--line);
+      color: var(--slate);
+      box-shadow: none;
+      margin-top: 1rem;
+    }
+    .cw-btn-outline:hover {
+      background: rgba(86, 100, 118, 0.05);
+      border-color: var(--slate);
+      color: var(--ink);
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Decorative border accents */
+    .cw-card-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 50%, var(--cyan) 100%);
+    }
+  </style>
+
+  <!-- ============================================================
+     GOOGLE ADS / ANALYTICS CONVERSION TRACKING (placeholders)
+     Pasting your GA4 / Google Ads tracking pixel here allows robust
+     page-load conversion tracking without script errors.
+============================================================= -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');          // GA4 property
+    gtag('config', 'AW-XXXXXXXXX');           // Google Ads account ID
+  </script>
+  -->
+  <script>
+    // Auto-fire conversion event on thank-you page load
+    window.addEventListener('DOMContentLoaded', function () {
+      if (typeof gtag === "function") {
+        // Replace with your real Google Ads Conversion ID if needed
+        // gtag('event', 'conversion', {'send_to': 'AW-XXXXXXXXX/XXXXXXXXXXXX'});
+        gtag('event', 'generate_lead', { 'form_id': 'study_abroad_hero_form' });
+      }
+    });
+  </script>
+</head>
+
+<body>
+
+  <div class="cw-thankyou-card">
+    <div class="cw-card-border"></div>
+
+    <!-- Logo Section -->
+    <a href="index.html" class="cw-logo-link">
+      <!-- Attempt to show WordPress logo asset, fallback to beautiful CSS text logo -->
+      <img src="https://www.careerwidth.com/wp-content/uploads/2025/05/Career-Width-Logo-1024x262.webp"
+        alt="Career Width" class="cw-logo-img" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='inline-block'">
+      <span id="logoFallback" class="cw-logo-fallback" style="display:none">Career<span>Width</span></span>
+    </a>
+
+    <!-- Stamp Visual -->
+    <div class="cw-stamp-wrapper">
+      <div class="cw-passport-stamp">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+        </svg>
+        <span>VISA APPROVED</span>
+      </div>
+    </div>
+
+    <!-- Copy Content -->
+    <div class="cw-eyebrow">Session Request Received</div>
+    <h1 class="cw-title">You're All Set!</h1>
+    <p class="cw-text">
+      Thank you for booking your free study abroad counselling session. A career consultant from our Delhi NCR team will call you within 24 hours at the number you provided to begin your profile evaluation.
+    </p>
+
+    <!-- Dynamic details section -->
+    <div class="cw-details-box" id="detailsBox" style="display:none">
+      <div class="cw-details-row">
+        <span class="cw-details-label">Lead Name:</span>
+        <span class="cw-details-val" id="detName">-</span>
+      </div>
+      <div class="cw-details-row">
+        <span class="cw-details-label">Preferred Destination:</span>
+        <span class="cw-details-val" id="detDest">-</span>
+      </div>
+      <div class="cw-details-row">
+        <span class="cw-details-label">Counselling Stage:</span>
+        <span class="cw-details-val" style="color: var(--teal); font-weight: 700;">Profile Evaluation Scheduled</span>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="d-flex flex-column align-items-center">
+      <a href="index.html" class="cw-btn">
+        Return to Landing Page
+        <svg class="icon" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="margin-left: 2px;">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </a>
+      <a href="https://www.careerwidth.com" target="_blank" rel="noopener" class="btn cw-btn-outline btn-sm">
+        Visit Career Width Homepage
+      </a>
+    </div>
+  </div>
+
+  <!-- Script to parse query parameters and display custom values dynamically -->
+  <script>
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get('fullName');
+      const dest = params.get('destination');
+
+      if (name || dest) {
+        document.getElementById('detailsBox').style.display = 'block';
+        if (name) {
+          document.getElementById('detName').textContent = decodeURIComponent(name);
+        }
+        if (dest) {
+          document.getElementById('detDest').textContent = decodeURIComponent(dest);
+        }
+      }
+    })();
+  </script>
+
+</body>
+
+</html>
