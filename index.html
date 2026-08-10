@@ -42,7 +42,7 @@
   "url": "https://www.careerwidth.com/",
   "logo": "https://www.careerwidth.com/logo.png",
   "image": "https://images.unsplash.com/photo-1495995424756-6a5a3f9e7543?auto=format&fit=crop&w=1200&q=80",
-  "description": "Career Width is a study abroad consultancy in India offering free counselling, university shortlisting, application support, scholarship guidance and visa assistance for students applying to universities in the USA, UK, Canada, Australia, Germany, Ireland, New Zealand and Europe.",
+  "description": "Career Width is a study abroad consultancy in India offering free counselling, university shortlisting, application support, scholarship guidance and visa assistance for students applying to universities in the USA, UK, Canada, Australia, Germany, Ireland, New Zealand and Dubai.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Pearls Omaxe Tower, SF 46, 2nd Floor, Netaji Subhash Place, Pitampura",
@@ -327,6 +327,8 @@
     .topbar-links {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      width: 100%;
       gap: 22px;
     }
 
@@ -335,21 +337,6 @@
       align-items: center;
       gap: 6px;
       opacity: .92;
-    }
-
-    .topbar-social {
-      display: flex;
-      gap: 10px;
-    }
-
-    .topbar-social a {
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, .35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     header.site-header {
@@ -1045,22 +1032,31 @@
       justify-content: center;
       margin: 0 auto 14px;
       box-shadow: 0 8px 18px -8px rgba(24, 44, 116, .5);
+      flex-shrink: 0;
     }
 
-    .tl-step h4 {
+    .tl-content {
+      text-align: center;
+    }
+
+    .tl-content h4 {
       font-size: 14px;
       color: var(--navy-dark);
+      margin: 0;
+      line-height: 1.3;
     }
 
-    .tl-step p {
+    .tl-content p {
       font-size: 12.5px;
       color: var(--muted);
       margin-top: 6px;
+      line-height: 1.45;
     }
 
     @media (max-width:980px) {
       .timeline {
         grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
       }
 
       .timeline::before {
@@ -1071,19 +1067,44 @@
     @media (max-width:620px) {
       .timeline {
         grid-template-columns: 1fr;
-        gap: 22px;
+        gap: 14px;
         text-align: left;
       }
 
       .tl-step {
         display: flex;
+        align-items: center;
         gap: 16px;
         text-align: left;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 16px;
+        box-shadow: var(--shadow-sm);
       }
 
       .tl-num {
+        width: 44px;
+        height: 44px;
+        font-size: 15px;
         margin: 0;
         flex-shrink: 0;
+      }
+
+      .tl-content {
+        text-align: left;
+        flex: 1;
+      }
+
+      .tl-content h4 {
+        font-size: 15px;
+        color: var(--navy-dark);
+      }
+
+      .tl-content p {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 3px;
       }
     }
 
@@ -1110,10 +1131,17 @@
       height: 260px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(245, 164, 40, .35), transparent 70%);
+      pointer-events: none;
+    }
+
+    .scholarship-info {
+      text-align: left;
     }
 
     .scholarship h2 {
       font-size: clamp(24px, 3vw, 34px);
+      margin-top: 14px;
+      line-height: 1.25;
     }
 
     .scholarship p {
@@ -1121,45 +1149,103 @@
       color: rgba(255, 255, 255, .82);
       font-size: 16px;
       max-width: 520px;
+      line-height: 1.6;
     }
 
     .scholarship .stats {
       display: flex;
+      flex-wrap: wrap;
       gap: 26px;
       margin-top: 22px;
     }
 
-    .scholarship .stats div {}
+    .scholarship .stat-item {
+      flex: 1 1 160px;
+    }
 
     .scholarship .stats .n {
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 800;
       color: var(--gold);
+      line-height: 1.2;
     }
 
     .scholarship .stats .l {
-      font-size: 12.5px;
-      color: rgba(255, 255, 255, .7);
+      font-size: 13px;
+      color: rgba(255, 255, 255, .75);
+      margin-top: 4px;
+      line-height: 1.4;
     }
 
     .scholarship-panel {
       background: rgba(255, 255, 255, .08);
       border: 1px solid rgba(255, 255, 255, .16);
       border-radius: 18px;
-      padding: 26px;
+      padding: 28px 24px;
       text-align: center;
+      backdrop-filter: blur(4px);
     }
 
     .scholarship-panel p {
-      color: rgba(255, 255, 255, .85);
-      font-size: 14px;
-      margin-bottom: 16px;
+      color: rgba(255, 255, 255, .9);
+      font-size: 14.5px;
+      margin: 0 0 16px 0;
+      max-width: none;
     }
 
     @media (max-width:900px) {
       .scholarship {
         grid-template-columns: 1fr;
-        padding: 36px 26px;
+        padding: 36px 24px;
+        gap: 28px;
+      }
+
+      .scholarship-info {
+        text-align: left;
+      }
+
+      .scholarship .stats {
+        gap: 20px;
+      }
+    }
+
+    @media (max-width:520px) {
+      .scholarship {
+        padding: 28px 18px;
+        border-radius: 20px;
+      }
+
+      .scholarship h2 {
+        font-size: 22px;
+      }
+
+      .scholarship p {
+        font-size: 14.5px;
+      }
+
+      .scholarship .stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .scholarship .stats .n {
+        font-size: 22px;
+      }
+
+      .scholarship .stats .l {
+        font-size: 12px;
+      }
+
+      .scholarship-panel {
+        padding: 20px 16px;
+      }
+
+      .scholarship-panel .btn {
+        white-space: normal;
+        padding: 13px 18px;
+        font-size: 14px;
+        line-height: 1.35;
       }
     }
 
@@ -1617,91 +1703,16 @@
     footer {
       background: var(--navy-dark);
       color: rgba(255, 255, 255, .75);
-      padding: 60px 0 26px;
+      padding: 28px 0;
+      text-align: center;
     }
 
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
-      gap: 36px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid rgba(255, 255, 255, .12);
-    }
-
-    .footer-col h5 {
-      color: #fff;
-      font-size: 14.5px;
-      margin-bottom: 16px;
-    }
-
-    .footer-col ul {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    footer .copyright {
+      margin: 0;
+      color: rgba(255, 255, 255, .85);
       font-size: 13.5px;
-    }
-
-    .footer-col a:hover {
-      color: #fff;
-    }
-
-    .footer-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .footer-logo .name {
-      color: #fff;
-      font-weight: 800;
-      font-size: 18px;
-    }
-
-    .footer-logo .name span {
-      color: var(--coral);
-    }
-
-    .footer-col.brand p {
-      font-size: 13.5px;
-      max-width: 280px;
-    }
-
-    .footer-social {
-      display: flex;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .footer-social a {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, .25);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding-top: 22px;
-      font-size: 12.5px;
-    }
-
-    @media (max-width:900px) {
-      .footer-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    @media (max-width:560px) {
-      .footer-grid {
-        grid-template-columns: 1fr;
-      }
+      line-height: 1.6;
+      text-align: center;
     }
 
     /* ---------- Welcome popup ---------- */
@@ -1984,22 +1995,6 @@
           +91-96503-02205</a>
         <span class="only-desktop">Pitampura, New Delhi · Mon–Sat, 10am–7pm</span>
       </div>
-      <div class="topbar-social">
-        <a href="#" aria-label="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2">
-            <rect x="2" y="2" width="20" height="20" rx="5" />
-            <circle cx="12" cy="12" r="4" />
-            <circle cx="17.5" cy="6.5" r="1" />
-          </svg></a>
-        <a href="#" aria-label="Facebook"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12" />
-          </svg></a>
-        <a href="#" aria-label="LinkedIn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002M7 8.48H3V21h4zM13.5 8.48h-3.83V21h3.83v-6.57c0-1.74.33-3.42 2.48-3.42 2.13 0 2.15 2 2.15 3.53V21H22v-7.93c0-3.66-.79-6.48-5.07-6.48-2.05 0-3.43 1.13-4 2.2h-.05z" />
-          </svg></a>
-      </div>
     </div>
   </div>
 
@@ -2131,7 +2126,7 @@
                 <option>Germany</option>
                 <option>Ireland</option>
                 <option>New Zealand</option>
-                <option>Europe</option>
+                <option>Dubai</option>
               </select>
             </div>
             <div class="field">
@@ -2144,13 +2139,26 @@
                 <option>Working Professional</option>
               </select>
             </div>
+            <div class="field">
+              <label for="h-exam">Any Exam Given*</label>
+              <select id="h-exam" required>
+                <option value="">Select</option>
+                <option>IELTS</option>
+                <option>TOEFL</option>
+                <option>PTE</option>
+                <option>DOULINGO</option>
+                <option>GMAT</option>
+                <option>Other</option>
+                <option>Not Yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="h-city">City*</label>
+              <input id="h-city" type="text" placeholder="Your city" required>
+            </div>
             <div class="field full">
               <label for="h-course">Interested Course</label>
               <input id="h-course" type="text" placeholder="e.g. MBA, Computer Science">
-            </div>
-            <div class="field full">
-              <label for="h-city">City*</label>
-              <input id="h-city" type="text" placeholder="Your city" required>
             </div>
             <button type="submit" class="btn btn-primary full">Get Free Counselling</button>
           </form>
@@ -2400,17 +2408,17 @@
                 </svg></a>
             </div>
           </div>
-          <!-- Europe -->
+          <!-- Dubai -->
           <div class="dest-card reveal">
             <div class="dest-banner"
-              style="background-image:url('https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&w=600&q=80');">
-              <span class="flag">🇪🇺</span>
-              <h3>Rest of Europe</h3>
+              style="background-image:url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80');">
+              <span class="flag">🇦🇪</span>
+              <h3>Dubai (UAE)</h3>
             </div>
             <div class="dest-body">
-              <div class="dest-row"><span>Tuition (approx.)</span><strong>€6K–20K/yr</strong></div>
-              <div class="dest-courses"><span>Design</span><span>Business</span></div>
-              <a href="#hero-form" class="dest-cta">Explore Europe <svg width="14" height="14" viewBox="0 0 24 24"
+              <div class="dest-row"><span>Tuition (approx.)</span><strong>AED 40K–80K/yr</strong></div>
+              <div class="dest-courses"><span>Business</span><span>Hospitality &amp; IT</span></div>
+              <a href="#hero-form" class="dest-cta">Explore Dubai <svg width="14" height="14" viewBox="0 0 24 24"
                   fill="none" stroke="currentColor" stroke-width="2.5">
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg></a>
@@ -2539,38 +2547,52 @@
         <div class="timeline">
           <div class="tl-step reveal">
             <div class="tl-num">1</div>
-            <h4>Free Counselling</h4>
-            <p>Profile review &amp; goal-setting</p>
+            <div class="tl-content">
+              <h4>Free Counselling</h4>
+              <p>Profile review &amp; goal-setting</p>
+            </div>
           </div>
           <div class="tl-step reveal">
             <div class="tl-num">2</div>
-            <h4>Shortlisting</h4>
-            <p>Universities matched to you</p>
+            <div class="tl-content">
+              <h4>Shortlisting</h4>
+              <p>Universities matched to you</p>
+            </div>
           </div>
           <div class="tl-step reveal">
             <div class="tl-num">3</div>
-            <h4>Application</h4>
-            <p>SOP, LOR &amp; documentation</p>
+            <div class="tl-content">
+              <h4>Application</h4>
+              <p>SOP, LOR &amp; documentation</p>
+            </div>
           </div>
           <div class="tl-step reveal">
             <div class="tl-num">4</div>
-            <h4>Offer Letter</h4>
-            <p>Admission confirmed</p>
+            <div class="tl-content">
+              <h4>Offer Letter</h4>
+              <p>Admission confirmed</p>
+            </div>
           </div>
           <div class="tl-step reveal">
             <div class="tl-num">5</div>
-            <h4>Visa</h4>
-            <p>File prep &amp; mock interview</p>
+            <div class="tl-content">
+              <h4>Visa</h4>
+              <p>File prep &amp; mock interview</p>
+            </div>
           </div>
           <div class="tl-step reveal">
             <div class="tl-num">6</div>
-            <h4>Accommodation</h4>
-            <p>Housing sorted in advance</p>
+            <div class="tl-content">
+              <h4>Accommodation</h4>
+              <p>Housing sorted in advance</p>
+            </div>
           </div>
           <div class="tl-step reveal">
             <div class="tl-num">7</div>
-            <h4>Fly Abroad</h4>
-            <p>Pre-departure briefing</p>
+            <div class="tl-content">
+              <h4>Fly Abroad</h4>
+              <p>Pre-departure briefing</p>
+            </div>
           </div>
         </div>
       </div>
@@ -2580,18 +2602,18 @@
     <section class="section-tight">
       <div class="wrap">
         <div class="scholarship reveal">
-          <div>
+          <div class="scholarship-info">
             <span class="eyebrow on-navy"><span class="dot"></span>Scholarships</span>
             <h2>Most Students Don't Know What They Already Qualify For</h2>
             <p>Merit-based awards, university-specific scholarships and country grants can cut your total cost
               significantly. We check every option against your academic record before you apply — not after you've
               paid.</p>
             <div class="stats">
-              <div>
+              <div class="stat-item">
                 <div class="n">$250K+</div>
                 <div class="l">Scholarships secured for students</div>
               </div>
-              <div>
+              <div class="stat-item">
                 <div class="n">2,400+</div>
                 <div class="l">Partner universities to draw from</div>
               </div>
@@ -2768,7 +2790,7 @@
                   <option>Germany</option>
                   <option>Ireland</option>
                   <option>New Zealand</option>
-                  <option>Europe</option>
+                  <option>Dubai</option>
                 </select>
               </div>
               <div class="field"><label for="m-qual">Current Qualification*</label>
@@ -2780,10 +2802,22 @@
                   <option>Working Professional</option>
                 </select>
               </div>
+              <div class="field"><label for="m-exam">Any Exam Given*</label>
+                <select id="m-exam" required>
+                  <option value="">Select</option>
+                  <option>IELTS</option>
+                  <option>TOEFL</option>
+                  <option>PTE</option>
+                  <option>DOULINGO</option>
+                  <option>GMAT</option>
+                  <option>Other</option>
+                  <option>Not Yet</option>
+                </select>
+              </div>
+              <div class="field"><label for="m-city">City*</label><input id="m-city" type="text" placeholder="Your city"
+                  required></div>
               <div class="field full"><label for="m-course">Interested Course</label><input id="m-course" type="text"
                   placeholder="e.g. MBA, Computer Science"></div>
-              <div class="field full"><label for="m-city">City*</label><input id="m-city" type="text"
-                  placeholder="Your city" required></div>
               <button type="submit" class="btn btn-navy full">Check My Eligibility</button>
             </form>
           </div>
@@ -2796,62 +2830,7 @@
   <!-- ================= FOOTER ================= -->
   <footer>
     <div class="wrap">
-      <div class="footer-grid">
-        <div class="footer-col brand">
-          <div class="footer-logo">
-            <img src="https://www.careerwidth.com/wp-content/uploads/2025/05/Career-Width-Logo-1024x262.webp"
-              alt="Career Width" style="height:36px;width:auto;filter:brightness(0) invert(1);"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
-            <span class="name" style="display:none">CAREER <span>WIDTH</span></span>
-          </div>
-          <p>Your dreams deserve the right direction. Career Width gives you the width to grow globally.</p>
-          <div class="footer-social">
-            <a href="#" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2">
-                <rect x="2" y="2" width="20" height="20" rx="5" />
-                <circle cx="12" cy="12" r="4" />
-              </svg></a>
-            <a href="#" aria-label="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12" />
-              </svg></a>
-            <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002M7 8.48H3V21h4zM13.5 8.48h-3.83V21h3.83v-6.57c0-1.74.33-3.42 2.48-3.42 2.13 0 2.15 2 2.15 3.53V21H22v-7.93c0-3.66-.79-6.48-5.07-6.48-2.05 0-3.43 1.13-4 2.2h-.05z" />
-              </svg></a>
-          </div>
-        </div>
-        <div class="footer-col">
-          <h5>Explore</h5>
-          <ul>
-            <li><a href="#why">Why Us</a></li>
-            <li><a href="#destinations">Destinations</a></li>
-            <li><a href="#courses">Courses</a></li>
-            <li><a href="#faq">FAQs</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Destinations</h5>
-          <ul>
-            <li><a href="#destinations">Study in USA</a></li>
-            <li><a href="#destinations">Study in UK</a></li>
-            <li><a href="#destinations">Study in Canada</a></li>
-            <li><a href="#destinations">Study in Germany</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Talk to Us</h5>
-          <ul>
-            <li>Pearls Omaxe Tower, SF 46, 2nd Floor, Netaji Subhash Place, Pitampura, New Delhi 110034</li>
-            <li><a href="mailto:inquiry@careerwidth.com">inquiry@careerwidth.com</a></li>
-            <li><a href="tel:+919650302205">+91-96503-02205</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 Career Width – Education Abroad</span>
-        <span>Privacy Policy · Terms &amp; Conditions · Refunds &amp; Cancellation Policy</span>
-      </div>
+      <p class="copyright">© 2026 Career Width – Education Abroad · Designed by Stealth digital</p>
     </div>
   </footer>
 
@@ -3029,6 +3008,7 @@
         email: val('-email'),
         country: val('-country'),
         qualification: val('-qual'),
+        exam: val('-exam'),
         course: val('-course'),
         city: val('-city'),
         utmSource: CW_UTM.source,
