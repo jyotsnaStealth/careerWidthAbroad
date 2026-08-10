@@ -2982,15 +2982,84 @@
     // paste the Web App URL here — it ends in /exec.
     var SHEET_WEBAPP_URL = 'https://script.google.com/macros/s/AKfycby1mdbMIqNMxKoSA6ZtJ7ebK2v_JA6fxohmgENpanr87bkPqLFjvzuBEcfOdyQ1fCJM/exec';
 
-    // Capture UTM params from current URL (or fallback)
-    var urlParams = new URLSearchParams(window.location.search);
-    var CW_UTM = {
-      source: urlParams.get('utm_source') || '',
-      medium: urlParams.get('utm_medium') || '',
-      campaign: urlParams.get('utm_campaign') || '',
-      term: urlParams.get('utm_term') || '',
-      content: urlParams.get('utm_content') || ''
-    };
+    // Capture UTM params from URL + persist across sessions/navigation, with Direct/Organic fallback
+    function getUTMParams() {
+      var params = new URLSearchParams(window.location.search);
+      var rawSource = params.get('utm_source');
+      var rawMedium = params.get('utm_medium');
+      var rawCampaign = params.get('utm_campaign');
+      var rawTerm = params.get('utm_term');
+      var rawContent = params.get('utm_content');
+
+      // If present in URL, persist to sessionStorage
+      if (rawSource || rawMedium || rawCampaign) {
+        try {
+          if (rawSource) sessionStorage.setItem('cw_utm_source', rawSource);
+          if (rawMedium) sessionStorage.setItem('cw_utm_medium', rawMedium);
+          if (rawCampaign) sessionStorage.setItem('cw_utm_campaign', rawCampaign);
+          if (rawTerm) sessionStorage.setItem('cw_utm_term', rawTerm);
+          if (rawContent) sessionStorage.setItem('cw_utm_content', rawContent);
+        } catch (e) {}
+      }
+
+      // Read from URL or persisted session
+      var source = rawSource || '';
+      var medium = rawMedium || '';
+      var campaign = rawCampaign || '';
+      var term = rawTerm || '';
+      var content = rawContent || '';
+
+      try {
+        if (!source) source = sessionStorage.getItem('cw_utm_source') || '';
+        if (!medium) medium = sessionStorage.getItem('cw_utm_medium') || '';
+        if (!campaign) campaign = sessionStorage.getItem('cw_utm_campaign') || '';
+        if (!term) term = sessionStorage.getItem('cw_utm_term') || '';
+        if (!content) content = sessionStorage.getItem('cw_utm_content') || '';
+      } catch (e) {}
+
+      // If still empty, determine Direct vs Organic Referrer
+      if (!source) {
+        var ref = document.referrer || '';
+        if (ref.indexOf('google.') !== -1) {
+          source = 'Google Organic';
+          medium = 'organic';
+          campaign = 'SEO';
+        } else if (ref.indexOf('bing.') !== -1 || ref.indexOf('yahoo.') !== -1) {
+          source = 'Search Engine Organic';
+          medium = 'organic';
+          campaign = 'SEO';
+        } else if (ref.indexOf('instagram.') !== -1 || ref.indexOf('facebook.') !== -1 || ref.indexOf('t.co') !== -1 || ref.indexOf('linkedin.') !== -1) {
+          source = 'Social Media';
+          medium = 'organic-social';
+          campaign = 'Social Referral';
+        } else if (ref && ref.indexOf(window.location.hostname) === -1) {
+          try {
+            var host = new URL(ref).hostname.replace(/^www\./, '');
+            source = 'Referral (' + host + ')';
+            medium = 'referral';
+            campaign = 'Referral Traffic';
+          } catch (err) {
+            source = 'Referral';
+            medium = 'referral';
+            campaign = 'Referral Traffic';
+          }
+        } else {
+          source = 'Direct Website';
+          medium = 'direct';
+          campaign = 'Direct Visit';
+        }
+      }
+
+      return {
+        source: source,
+        medium: medium,
+        campaign: campaign,
+        term: term,
+        content: content
+      };
+    }
+
+    var CW_UTM = getUTMParams();
 
     function handleLeadSubmit(e, formName) {
       e.preventDefault();
@@ -3003,6 +3072,7 @@
         return field ? field.value.trim() : '';
       }
 
+      var currentUTM = getUTMParams();
       var data = {
         formName: formName,
         formSource: formName,
@@ -3014,16 +3084,16 @@
         exam: val('-exam'),
         course: val('-course'),
         city: val('-city'),
-        utmSource: CW_UTM.source,
-        utm_source: CW_UTM.source,
-        utmMedium: CW_UTM.medium,
-        utm_medium: CW_UTM.medium,
-        utmCampaign: CW_UTM.campaign,
-        utm_campaign: CW_UTM.campaign,
-        utmTerm: CW_UTM.term,
-        utm_term: CW_UTM.term,
-        utmContent: CW_UTM.content,
-        utm_content: CW_UTM.content
+        utmSource: currentUTM.source || CW_UTM.source,
+        utm_source: currentUTM.source || CW_UTM.source,
+        utmMedium: currentUTM.medium || CW_UTM.medium,
+        utm_medium: currentUTM.medium || CW_UTM.medium,
+        utmCampaign: currentUTM.campaign || CW_UTM.campaign,
+        utm_campaign: currentUTM.campaign || CW_UTM.campaign,
+        utmTerm: currentUTM.term || CW_UTM.term,
+        utm_term: currentUTM.term || CW_UTM.term,
+        utmContent: currentUTM.content || CW_UTM.content,
+        utm_content: currentUTM.content || CW_UTM.content
       };
 
       btn.textContent = 'Submitting…';
