@@ -2118,7 +2118,7 @@
             </div>
             <div class="field">
               <label for="h-phone">Phone*</label>
-              <input id="h-phone" type="tel" placeholder="Mobile number" required>
+              <input id="h-phone" type="tel" placeholder="Mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
             </div>
             <div class="field">
               <label for="h-email">Email*</label>
@@ -2803,7 +2803,7 @@
               <div class="field full"><label for="m-name">Full Name*</label><input id="m-name" type="text"
                   placeholder="Your full name" required></div>
               <div class="field"><label for="m-phone">Phone*</label><input id="m-phone" type="tel"
-                  placeholder="Mobile number" required></div>
+                  placeholder="Mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number"></div>
               <div class="field"><label for="m-email">Email*</label><input id="m-email" type="email"
                   placeholder="Email address" required></div>
               <div class="field"><label for="m-country">Preferred Country*</label>
@@ -2906,6 +2906,22 @@
     window.addEventListener('pageshow', function (event) {
       document.querySelectorAll('form').forEach(function (form) {
         form.reset();
+      });
+    });
+
+    // ---------- Phone input validation (only digits, max 10 digits, strip country code prefixes on paste) ----------
+    document.querySelectorAll('input[type="tel"]').forEach(function (input) {
+      input.addEventListener('input', function (e) {
+        var num = this.value.replace(/\D/g, ''); // Remove non-digits
+        if (num.startsWith('91') && num.length > 10) {
+          num = num.substring(2); // Strip 91 prefix
+        } else if (num.startsWith('0') && num.length > 10) {
+          num = num.substring(1); // Strip 0 prefix
+        }
+        if (num.length > 10) {
+          num = num.substring(0, 10); // Truncate to 10 digits
+        }
+        this.value = num;
       });
     });
 
@@ -3144,7 +3160,7 @@
       setTimeout(function () {
         btn.textContent = 'Done ✓';
         setTimeout(function () {
-          window.location.href = 'thank-you?name=' + encodeURIComponent(data.name || '');
+          window.location.href = 'thank-you.html?name=' + encodeURIComponent(data.name || '');
         }, 400);
       }, 600);
 
