@@ -2119,7 +2119,7 @@
             </div>
             <div class="field">
               <label for="h-phone">Phone*</label>
-              <input id="h-phone" type="tel" placeholder="Mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number">
+              <input id="h-phone" type="tel" placeholder="Mobile number" required pattern="[6-9][0-9]{9}" title="Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9">
             </div>
             <div class="field">
               <label for="h-email">Email*</label>
@@ -2804,7 +2804,7 @@
               <div class="field full"><label for="m-name">Full Name*</label><input id="m-name" type="text"
                   placeholder="Your full name" required></div>
               <div class="field"><label for="m-phone">Phone*</label><input id="m-phone" type="tel"
-                  placeholder="Mobile number" required pattern="[0-9]{10}" title="Please enter a valid 10-digit mobile number"></div>
+                  placeholder="Mobile number" required pattern="[6-9][0-9]{9}" title="Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9"></div>
               <div class="field"><label for="m-email">Email*</label><input id="m-email" type="email"
                   placeholder="Email address" required></div>
               <div class="field"><label for="m-country">Preferred Country*</label>
@@ -2923,6 +2923,13 @@
           num = num.substring(0, 10); // Truncate to 10 digits
         }
         this.value = num;
+
+        // Custom validation: mobile number should start from 6, 7, 8, or 9
+        if (num.length > 0 && !/^[6-9]/.test(num)) {
+          this.setCustomValidity('Mobile number must start with 6, 7, 8, or 9');
+        } else {
+          this.setCustomValidity('');
+        }
       });
     });
 
