@@ -1718,115 +1718,7 @@
       text-align: center;
     }
 
-    /* ---------- Welcome popup ---------- */
-    .popup-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(16, 23, 60, .62);
-      backdrop-filter: blur(3px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .3s ease, visibility .3s ease;
-    }
 
-    .popup-overlay.is-open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .popup-card {
-      position: relative;
-      background: #fff;
-      border-radius: 24px;
-      max-width: 420px;
-      width: 100%;
-      padding: 36px 30px 30px;
-      text-align: center;
-      box-shadow: 0 40px 80px -20px rgba(10, 15, 45, .55);
-      transform: scale(.92) translateY(14px);
-      transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
-    }
-
-    .popup-overlay.is-open .popup-card {
-      transform: scale(1) translateY(0);
-    }
-
-    .popup-close {
-      position: absolute;
-      top: 12px;
-      right: 14px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--bg);
-      color: var(--muted);
-      font-size: 22px;
-      line-height: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background .15s ease, color .15s ease;
-    }
-
-    .popup-close:hover {
-      background: var(--line);
-      color: var(--navy-dark);
-    }
-
-    .popup-badge {
-      width: 56px;
-      height: 56px;
-      margin: 0 auto 14px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--coral), var(--gold));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-    }
-
-    .popup-eyebrow {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--sky);
-      margin-bottom: 8px;
-    }
-
-    .popup-card h3 {
-      font-size: 22px;
-      color: var(--navy-dark);
-      line-height: 1.25;
-      margin-bottom: 10px;
-    }
-
-    .popup-card p {
-      color: var(--muted);
-      font-size: 14.5px;
-      margin-bottom: 20px;
-    }
-
-    .popup-micro {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 12px;
-    }
-
-    @media (max-width:480px) {
-      .popup-card {
-        padding: 28px 22px 24px;
-      }
-
-      .popup-card h3 {
-        font-size: 19px;
-      }
-    }
 
     .reveal {
       opacity: 0;
@@ -2835,23 +2727,7 @@
     </div>
   </footer>
 
-  <!-- ================= WELCOME POPUP — opens ~2s after every load, every visit ================= -->
-  <div class="popup-overlay" id="popupOverlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-    <div class="popup-card">
-      <button type="button" class="popup-close" id="popupClose" aria-label="Close popup">&times;</button>
-      <div class="popup-badge" aria-hidden="true">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z" />
-        </svg>
-      </div>
-      <p class="popup-eyebrow">Before You Go</p>
-      <h3 id="popupTitle">Still Deciding Where to Study Abroad?</h3>
-      <p>Get a free 1:1 session with a Career Width counsellor. 15 minutes tells you which countries and universities
-        actually fit your profile — no obligation.</p>
-      <a href="#hero-form" class="btn btn-primary btn-block" id="popupCta">Book My Free Session Now</a>
-      <p class="popup-micro">7,000+ students already got clarity. Your turn.</p>
-    </div>
-  </div>
+
 
   <!-- ================= STICKY MOBILE CTA ================= -->
   <div class="sticky-mobile">
@@ -3135,32 +3011,7 @@
       return false;
     }
 
-    // ---------- Welcome popup: opens ~2s after every load, every visit.
-    // Intentionally NOT gated by any cookie/localStorage/sessionStorage check. ----------
-    (function () {
-      var overlay = document.getElementById('popupOverlay');
-      if (!overlay) return;
-      var closeBtn = document.getElementById('popupClose');
-      var cta = document.getElementById('popupCta');
 
-      function openPopup() { overlay.classList.add('is-open'); }
-      function closePopup() { overlay.classList.remove('is-open'); }
-
-      setTimeout(openPopup, 2000);
-
-      closeBtn.addEventListener('click', closePopup);
-      overlay.addEventListener('click', function (e) { if (e.target === overlay) closePopup(); });
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && overlay.classList.contains('is-open')) closePopup();
-      });
-      cta.addEventListener('click', function () {
-        closePopup();
-        setTimeout(function () {
-          var nameField = document.getElementById('h-name');
-          if (nameField) nameField.focus({ preventScroll: true });
-        }, 500);
-      });
-    })();
   </script>
 </body>
 
